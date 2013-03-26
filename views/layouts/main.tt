@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=[% settings.charset %]" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPR</title>
+    <link rel="stylesheet" href="[% request.uri_base %]/css/style.css" />
+    <script type="text/javascript" src="[% request.uri_base %]/javascripts/jquery.js"></script>
+    <link href="[% request.uri_base %]/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+    [% content %]
+
+    <script src="[% request.uri_base %]/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

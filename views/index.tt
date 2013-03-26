@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>NPR Story of the Day</h1>
+    <div class="well">
+        [% FOREACH story = stories %]
+        <div>
+            <span class="muted">[% story.id %]</span>
+            <span class="btn-link" sid="[% story.id %]">[% story.title %]</span>
+        </div>
+        [% END %]
+    </div>
+
+    <h2 id="story-title"></h2>
+    <div id="story"></div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $('.btn-link').on('click', function(){
+        $('#story').html('loading...');
+
+        var title = $(this).text();
+        $('#story-title').text(title);
+
+        var sid = $(this).attr('sid');
+        $('#story').load('[% request.uri_base %]/story/'+sid);
+    });
+</script>
