@@ -9,8 +9,16 @@ use JSON;
 
 our $VERSION = '0.1';
 
+hook 'before_template_render' => sub {
+    my $tokens = shift;
+    my $base   = uri_for('/');
+    $base =~ s/\/$//;
+    $base =~ s{^http://}{https://} if request->header('X-Forwarded-Proto') eq 'https';
+    $tokens->{'base'} = $base;
+};
+
 get '/' => sub {
-    my $url_stories = 'http://api.npr.org/query?id=1090&fields=title,storyDate,transcript&dateType=story&sort=dateDesc&output=JSON&apiKey=MDExMTA1NDUwMDEzNjQyNjc4NDFmZjZkOA001';
+    my $url_stories = 'http://api.npr.org/query?id=1056&fields=title,storyDate,transcript&dateType=story&sort=dateDesc&output=JSON&apiKey=MDExMTA1NDUwMDEzNjQyNjc4NDFmZjZkOA001';
 
     my $res = HTTP::Tiny->new->get($url_stories);
     die "Failed wget $url_stories\n" unless $res->{success};
@@ -18,6 +26,7 @@ get '/' => sub {
     my $json    = $res->{content};
     my $hash    = decode_json $json;
     my $stories = $hash->{list}{story};
+    my $title   = $hash->{list}{title}{'$text'};
 
     my @stories;
     for (@$stories) {
@@ -28,6 +37,7 @@ get '/' => sub {
 
         # printf "%s - %s %s\n", $id, $title, $url_transcript;
     }
+    var title   => $title;
     var stories => \@stories;
     template 'index', vars;
 };
@@ -52,9 +62,10 @@ get '/story/:id' => sub {
     my @paras_new = map {
         if (/:/) {
             my ( $who, $what ) = split /:\s+/, $_, 2;
-            if ( length $who < 30 ){
+            if ( length $who < 30 ) {
                 { who => $who, what => $what };
-            }else{
+            }
+            else {
                 { what => $_ };
             }
         }
@@ -63,6 +74,7 @@ get '/story/:id' => sub {
         }
     } @paras;
     var paras => \@paras_new;
+    var paras_orig => \@paras;
     template 'story', vars, { layout => undef };
 };
 

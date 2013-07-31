@@ -1,12 +1,25 @@
 <div class="container">
 [% FOREACH para = paras %]
 <div class="row">
-    <div class="span2">
-        <h5 class="muted pull-right">[% para.who %]</h5>
+    <div class="col-lg-2">
+        <div class="text-muted text-right">[% para.who %]</div>
     </div>
-    <div class="span10">
-        <div class="well well-p">[% para.what %]</div>
+    <div class="col-lg-10">
+        [% IF para.what %]
+        <div class="well well-small">[% para.what %]</div>
+        [% END %]
     </div>
 </div>
 [% END %]
+</div>
+
+<div class="well">
+    <pre>
+[% FOREACH para = paras_orig %]
+[% para %]
+[% END %]
+
+
+    </pre>
+    
 </div>
