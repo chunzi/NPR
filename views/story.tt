@@ -1,25 +1,18 @@
 <div class="container">
-[% FOREACH para = paras %]
-<div class="row">
-    <div class="col-lg-2">
-        <div class="text-muted text-right">[% para.who %]</div>
-    </div>
-    <div class="col-lg-10">
-        [% IF para.what %]
-        <div class="well well-small">[% para.what %]</div>
+    [% FOREACH para = tran.paras %]
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="text-muted text-right"><span class="speaker">[% para.speaker %]</span></div>
+        </div>
+        <div class="col-lg-8">
+        [% IF para.words %]
+            [% IF para.background %]
+                <p class="text-muted">[% para.words %]</p>
+            [% ELSE %]
+                <div class="well well-small"><span class="words">[% para.words %]</span></div>
+            [% END %]
         [% END %]
+        </div>
     </div>
-</div>
-[% END %]
-</div>
-
-<div class="well">
-    <pre>
-[% FOREACH para = paras_orig %]
-[% para %]
-[% END %]
-
-
-    </pre>
-    
+    [% END %]
 </div>

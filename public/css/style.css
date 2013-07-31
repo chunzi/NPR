@@ -1,11 +1,18 @@
 body {
     font-family: "Palatino Linotype","Book Antiqua",Palatino,FreeSerif,Georgia,serif;
+}
+.words {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    font-family: "Palatino Linotype","Book Antiqua",Palatino,FreeSerif,Georgia,serif;
+    color: #555;
+}
+
+.speaker {
     font-family: Menlo,Monaco,monospace;
 }
-.well-p {
-    font-size: 1.3em;
-    line-height: 1.5em;
-    font-family: "Palatino Linotype","Book Antiqua",Palatino,FreeSerif,Georgia,serif;
-    margin-bottom: 20px;
+
+.list-group-item {
+    padding: 5px 10px;
 }
 
