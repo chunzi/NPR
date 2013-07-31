@@ -1,4 +1,13 @@
 <div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <p>
+                <span class="text-muted">[% tran.published_at.ymd %]</span>
+                <a href="[% tran.npr_url %]" target="_blank">via</a>
+            </p>
+        </div>
+    </div>
     [% FOREACH para = tran.paras %]
     <div class="row">
         <div class="col-lg-2">
@@ -15,4 +24,13 @@
         </div>
     </div>
     [% END %]
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <p class="end">~</p>
+        </div>
+    </div>
 </div>
+<pre>
+[% USE Dumper; Dumper.dump(tran.doc) %]
+</pre>

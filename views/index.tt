@@ -1,26 +1,41 @@
 <div class="container">
-    <h1>[% title %]</h1>
-    <div class="list-group">
-        [% FOREACH story = stories %]
-        <a href="#" class="list-group-item story-title" sid='[% story.id %]'>[% story.title %]</a>
-        [% END %]
+    <div class="row">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8">
+            <h2>[% title %]</h2>
+            <div class="list-group">
+                [% FOREACH story = stories %]
+                <a href="#" class="list-group-item story-title" sid='[% story.id %]'>[% story.title %]</a>
+                [% END %]
+            </div>
+        </div>
     </div>
 
-    <h2 id="title"></h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8">
+            <h3 id="title"></h3>
+        </div>
+    </div>
+
     <div id="story"></div>
 </div>
 
 <script type="text/javascript" charset="utf-8">
     $('.story-title').on('click', function(){
+        $('.list-group-item.active').removeClass('active');
         var that = $(this);
         that.addClass('active');
+        that.blur();
 
-        $('#story').html('Loading...');
-
-        var title = $(this).text();
+        var title = that.text();
+        var sid = that.attr('sid');
         $('#title').text(title);
-
-        var sid = $(this).attr('sid');
+        $('#story').html('Loading...');
         $('#story').load('[% base %]/story/'+sid);
     });
 </script>

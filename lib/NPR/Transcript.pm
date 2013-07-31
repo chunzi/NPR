@@ -7,6 +7,7 @@ use Text::Trim;
 use base qw(Class::Accessor);
 __PACKAGE__->mk_accessors(qw/
     doc
+    npr_url published_at
 /);
 
 sub new { 
@@ -22,11 +23,11 @@ sub new {
     my $doc = parsestring($xml);
     $self->doc( $doc );
 
-    my $story_url = $doc->{transcript}{story}{link}[0]{content};
-    my ( $yy, $mm, $dd, $sid, $slug ) = ( $story_url =~ m{\.org/(.*?)/(.*?)/(.*?)/(.*?)/(.*)$} );
-    my $day = date [$yy, $mm, $dd];
-
-    # printf "%s: %s - %s\n", $sid, $day->ymd, $slug;
+    my $npr_url = $doc->{transcript}{story}{link}[0]{content};
+    my ( $yy, $mm, $dd, $sid, $slug ) = ( $npr_url =~ m{\.org/(.*?)/(.*?)/(.*?)/(.*?)/(.*)$} );
+    my $published_at = date [$yy, $mm, $dd];
+    $self->npr_url( $npr_url );
+    $self->published_at( $published_at );
 
     return $self;
 }

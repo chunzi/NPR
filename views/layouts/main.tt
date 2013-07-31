@@ -13,7 +13,7 @@
         <div class="navbar">
             <a class="navbar-brand" href="[% base %]">NPR</a>
             <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Podcast</a></li>
+                <li class="active"><a href="[% base %]">Podcast</a></li>
             </ul>
         </div>
     </div>

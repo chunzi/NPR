@@ -16,3 +16,9 @@ body {
     padding: 5px 10px;
 }
 
+.end {
+    margin: 20px 0 50px;
+    font-size: 2em;
+    color: #DDD;
+    text-align: center;
+}
