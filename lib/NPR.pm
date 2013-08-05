@@ -26,6 +26,8 @@ get '/' => sub {
 
     my $json    = $res->{content};
     my $hash    = decode_json $json;
+    var rss => $hash;
+
     my $stories = $hash->{list}{story};
     my $title   = $hash->{list}{title}{'$text'};
 

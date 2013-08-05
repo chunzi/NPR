@@ -50,8 +50,8 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   // http://blog.alexmaccaw.com/css-transitions
   $.fn.emulateTransitionEnd = function (duration) {
     var called = false, $el    = this
-    $(this).one('webkitTransitionEnd', function () { called = true })
-    var callback = function () { if (!called) $($el).trigger('webkitTransitionEnd') }
+    $(this).one($.support.transition.end, function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
     setTimeout(callback, duration)
     return this
   }
@@ -219,7 +219,9 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     var $parent = this.$element.closest('[data-toggle="buttons"]')
 
     if ($parent.length) {
-      var $input = this.$element.find('input').prop('checked', !this.$element.hasClass('active'))
+      var $input = this.$element.find('input')
+        .prop('checked', !this.$element.hasClass('active'))
+        .trigger('change')
       if ($input.prop('type') === 'radio') $parent.find('.active').removeClass('active')
     }
 
@@ -235,7 +237,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.button = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var data    = $this.data('button')
+      var data    = $this.data('bs.button')
       var options = typeof option == 'object' && option
 
       if (!data) $this.data('bs.button', (data = new Button(this, options)))
@@ -533,7 +535,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     this.$element.trigger(startEvent)
     if (startEvent.isDefaultPrevented()) return
 
-    var actives   = this.$parent && this.$parent.find('> .accordion-group > .in')
+    var actives = this.$parent && this.$parent.find('> .accordion-group > .in')
 
     if (actives && actives.length) {
       var hasData = actives.data('bs.collapse')
@@ -1054,9 +1056,11 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       })
   })
 
-  var $body = $(document.body)
-    .on('shown.bs.modal',  '.modal', function () { $body.addClass('modal-open') })
-    .on('hidden.bs.modal', '.modal', function () { $body.removeClass('modal-open') })
+  $(function () {
+    var $body = $(document.body)
+      .on('shown.bs.modal',  '.modal', function () { $body.addClass('modal-open') })
+      .on('hidden.bs.modal', '.modal', function () { $body.removeClass('modal-open') })
+  })
 
 }(window.jQuery);
 
@@ -1311,6 +1315,8 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     var $tip = this.tip()
     var e    = $.Event('hide.bs.' + this.type)
 
+    function complete() { $tip.detach() }
+
     this.$element.trigger(e)
 
     if (e.isDefaultPrevented()) return
@@ -1319,9 +1325,9 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
     $.support.transition && this.$tip.hasClass('fade') ?
       $tip
-        .one($.support.transition.end, $tip.detach)
+        .one($.support.transition.end, complete)
         .emulateTransitionEnd(150) :
-      $tip.detach()
+      complete()
 
     this.$element.trigger('hidden.bs.' + this.type)
 
@@ -1505,10 +1511,6 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   Popover.prototype.tip = function () {
     if (!this.$tip) this.$tip = $(this.options.template)
     return this.$tip
-  }
-
-  Popover.prototype.destroy = function () {
-    this.hide().$element.off('.' + this.type).removeData(this.type)
   }
 
 
