@@ -1,5 +1,5 @@
 body {
-    font-family: "Palatino Linotype","Book Antiqua",Palatino,FreeSerif,Georgia,serif;
+    font-family: Arial;
 }
 .words {
     font-size: 1.2em;
@@ -7,10 +7,6 @@ body {
     font-family: "Palatino Linotype","Book Antiqua",Palatino,FreeSerif,Georgia,serif;
     color: #555;
 }
-.list-group-stories {
-    font-family: Arial;
-}
-
 .speaker {
     font-family: Menlo,Monaco,monospace;
 }

@@ -1,25 +1,19 @@
 <div class="container">
     <div class="row">
-        <div class="col-lg-4 col-lg-offset-2">
-            <h2>[% title %]</h2>
+        <div class="col-lg-8 col-lg-offset-2">
+            <h2>[% podcast.title %]</h2>
+            <p>[% podcast.teaser %]</p>
             <div class="list-group list-group-stories">
-                [% FOREACH story = stories %]
-                <a href="#" class="list-group-item story-title" sid='[% story.id %]'>[% story.title %]</a>
-                [% END %]
+                [% FOREACH story = podcast.stories %]
+                <a href="#" class="list-group-item story-title" sid='[% story.id %]'><span class="text-muted"><small>[% story.date.ymd %]</small></span> [% story.title %]</a>[% END %]
             </div>
         </div>
     </div>
 
     <hr />
-    <pre>
-    [% USE Dumper; Dumper.dump(rss) %]
-
-    </pre>
 
     <div class="row">
-        <div class="col-lg-2">
-        </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8 col-lg-offset-2">
             <h3 id="title"></h3>
         </div>
     </div>
