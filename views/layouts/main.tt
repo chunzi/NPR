@@ -10,12 +10,16 @@
 </head>
 <body>
     <div class="container">
-        <div class="navbar">
-            <a class="navbar-brand" href="[% base %]">NPR</a>
+        <nav class="navbar" role="navigation">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">NPR</a>
+          </div>
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="[% base %]">Podcast</a></li>
+              <li class="active"><a href="[% base %]">Podcast</a></li>
             </ul>
-        </div>
+          </div>
+        </nav>
     </div>
 
     [% content %]
