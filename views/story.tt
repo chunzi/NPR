@@ -4,7 +4,7 @@
         <div class="col-lg-8">
             <p>
                 <span class="text-muted">[% tran.published_at.ymd %]</span>
-                <a href="[% tran.npr_url %]" target="_blank">via</a>
+                <a class="btn btn-default btn-xs" href="[% tran.npr_url %]" target="_blank">Source</a>
             </p>
         </div>
     </div>
