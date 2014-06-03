@@ -3,26 +3,14 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NPR</title>
+
     <link rel="stylesheet" href="[% base %]/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="[% base %]/css/style.css" />
-    <script type="text/javascript" src="[% base %]/js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="[% base %]/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="[% base %]/css/style.css" />
+    <script type="text/javascript" src="[% base %]/js/jquery-2.1.1.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar" role="navigation">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">NPR</a>
-          </div>
-          <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="[% base %]">Podcast</a></li>
-            </ul>
-          </div>
-        </nav>
-    </div>
-
     [% content %]
-
 </body>
 </html>

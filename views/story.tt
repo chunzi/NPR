@@ -1,32 +1,32 @@
 <div class="container">
     <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-            <p>
-                <span class="text-muted">[% tran.published_at.ymd %]</span>
-                <a class="btn btn-default btn-xs" href="[% tran.npr_url %]" target="_blank">Source</a>
-            </p>
+        <div class="col-md-8 col-md-offset-2">
+            <a class="btn btn-default" href="[% tran.npr_url %]" target="_blank">Source</a>
         </div>
     </div>
+
     [% FOREACH para = tran.paras %]
     <div class="row">
-        <div class="col-lg-2">
-            <div class="text-muted text-right"><span class="speaker">[% para.speaker %]</span></div>
+        <div class="col-md-2">
+            <div class="text-muted text-right speaker">[% para.speaker %]</div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-md-8">
         [% IF para.words %]
             [% IF para.background %]
                 <p class="text-muted">[% para.words %]</p>
             [% ELSE %]
-                <div class="well well-small"><span class="words">[% para.words %]</span></div>
+            <div class="">
+                <span class="words">[% para.words %]</span>
+            </div>
             [% END %]
         [% END %]
+            <hr />
         </div>
     </div>
     [% END %]
     <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <p class="end">~</p>
         </div>
     </div>

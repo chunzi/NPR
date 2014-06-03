@@ -1,23 +1,32 @@
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
+        <div class="col-md-8 col-md-offset-2">
             <h2>[% podcast.title %]</h2>
-            <p>[% podcast.teaser %]</p>
+            <p class="text-muted">[% podcast.teaser %]</p>
+        </div>
+    </div>
+</div>
+
+<div style="background: #fafafa; border-top: solid 1px #EEE; border-bottom: solid 1px #EEE; padding-top: 20px;">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <div class="list-group list-group-stories">
                 [% FOREACH story = podcast.stories %]
-                <a href="#" class="list-group-item story-title" sid='[% story.id %]'><span class="text-muted"><small>[% story.date.ymd %]</small></span> [% story.title %]</a>[% END %]
+                <a href="#story" class="list-group-item story-title" sid='[% story.id %]'><small>[% story.date.ymd %]</small>&nbsp;&nbsp;[% story.title %]</a>[% END %]
             </div>
         </div>
     </div>
+</div>
+</div>
 
-    <hr />
-
+<div class="container" name="story">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <h3 id="title"></h3>
+        <div class="col-md-8 col-md-offset-2">
+            <h1 id="title"></h1>
         </div>
     </div>
-
+    <br />
     <div id="story"></div>
 </div>
 
@@ -31,7 +40,6 @@
         var title = that.text();
         var sid = that.attr('sid');
         $('#title').text(title);
-        $('#story').html('Loading...');
         $('#story').load('[% base %]/story/'+sid);
     });
 </script>
