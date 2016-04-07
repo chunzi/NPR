@@ -27,6 +27,9 @@ sub new {
     my $json = $res->{content};
     my $hash = decode_json $json;
     $self->rss($hash);
+    
+        # use YAML;
+        # die Dump $hash;
 
     my $title   = $hash->{list}{title}{'$text'};
     $self->title( $title );
@@ -40,7 +43,10 @@ sub new {
         my $title          = $_->{title}{'$text'};
         my $date_str          = $_->{storyDate}{'$text'};
         my $date  = $fmt->parse_datetime($date_str);
-        my $url_transcript = $_->{transcript}{link}{'$text'};
+        # my $url_transcript = $_->{transcript}{link}{'$text'};
+        my $links = $_->{transcript}{link};
+        my $url_transcript = map { $_->{'$text'} } grep { $_->{type} eq 'api' } @$links;
+
         push @stories, { id => $id, title => $title, date => $date, url => $url_transcript };
     }
 
