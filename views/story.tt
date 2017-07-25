@@ -5,25 +5,46 @@
         </div>
     </div>
 
-    [% FOREACH para = tran.paras %]
+
     <div class="row">
         <div class="col-md-2">
-            <div class="text-muted text-right speaker">[% para.speaker %]</div>
+            <div id="all" class="well"></div>
         </div>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+
+$('#all').affix({
+  offset: {
+    top: 100,
+    target: 'body'
+  }
+})
+    
+});
+</script>
+
+
         <div class="col-md-8">
+            
+    [% FOREACH para = tran.paras %]
+            <div class="text-muted text-right speaker">[% para.speaker %]</div>
         [% IF para.words %]
             [% IF para.background %]
                 <p class="text-muted">[% para.words %]</p>
             [% ELSE %]
             <div class="">
-                <span class="words">[% para.words %]</span>
+                <span class="words">[% para.awords %]</span>
             </div>
             [% END %]
         [% END %]
             <hr />
+    [% END %]
+
         </div>
     </div>
-    [% END %]
+
+
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
@@ -31,3 +52,23 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+
+    $('.word').click(function(){
+        $(this).toggleClass('word-actived');
+        $(this).blur();
+        find_all_actived_words();
+        return false;
+    });
+
+    function find_all_actived_words (){
+        var words = $('.word-actived').map(function(){ return $(this).text(); }).get();
+        var words_uniq = _.uniq( words );
+        var words_html = words_uniq.join('<br>');
+
+        $('#all').html( words_html );
+    }
+});
+</script>

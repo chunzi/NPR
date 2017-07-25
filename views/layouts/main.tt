@@ -5,10 +5,12 @@
     <title>NPR</title>
 
     <link rel="stylesheet" href="[% base %]/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="[% base %]/bootstrap/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="[% base %]/css/style.css" />
     <script type="text/javascript" src="[% base %]/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="[% base %]/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="[% base %]/js/underscore.min.js"></script>
 </head>
 <body>
     [% content %]
