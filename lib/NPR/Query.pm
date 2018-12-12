@@ -2,6 +2,7 @@ package NPR::Query;
 use strict;
 use HTTP::Tiny;
 use JSON;
+use YAML;
 use Class::Date qw/ date /;
 use DateTime::Format::RSS;
 use base qw(Class::Accessor);
@@ -19,6 +20,7 @@ sub new {
     $self->id($id);
 
     my $url = sprintf 'http://api.npr.org/query?id=%s&fields=title,storyDate,transcript&dateType=story&sort=dateDesc&output=JSON&apiKey=MDExMTA1NDUwMDEzNjQyNjc4NDFmZjZkOA001', $id;
+    print Dump $url;
     $self->url($url);
 
     my $res = HTTP::Tiny->new->get($url);

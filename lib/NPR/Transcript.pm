@@ -34,6 +34,19 @@ sub new {
     return $self;
 }
 
+sub new {
+    my $self = shift;
+    my $id = shift;
+
+    my $url = 'https://www.npr.org/templates/transcript/transcript.php';
+    my $form = { storyId => $id };
+
+    use Mojo::UserAgent;
+    my $ua = new Mojo::UserAgent;
+    my $res  = $ua->get( $url, form => $form )->result;
+    return $res;
+}
+
 sub paras {
     my $self = shift;
     my @paras = map { $_->{content} } @{ $self->doc->{transcript}{paragraph} };

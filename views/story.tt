@@ -1,57 +1,32 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <a class="btn btn-default" href="[% tran.npr_url %]" target="_blank">Source</a>
-        </div>
+<style type="text/css" media="screen">
+.card { font-family: Georgia,serif; font-size: 1.4rem; line-height: 180%; } 
+</style>
+
+<div class="container bg-light py-4">
+
+    <div class="card mb-4 border-0">
+    <div class="card-body">
+        <h5 class="card-title" style="font-size: 3rem;">[% res.title %]</h5>
+        <h6 class="card-subtitle mb-2 text-muted">[% res.mp3 %]</h6>
+    </div>
     </div>
 
 
-    <div class="row">
-        <div class="col-md-2">
-            <div id="all" class="well"></div>
-        </div>
-
-<script type="text/javascript" charset="utf-8">
-$(document).ready(function(){
-
-$('#all').affix({
-  offset: {
-    top: 100,
-    target: 'body'
-  }
-})
-    
-});
-</script>
-
-
-        <div class="col-md-8">
             
-    [% FOREACH para = tran.paras %]
-            <div class="text-muted text-right speaker">[% para.speaker %]</div>
-        [% IF para.words %]
-            [% IF para.background %]
-                <p class="text-muted">[% para.words %]</p>
-            [% ELSE %]
-            <div class="">
-                <span class="words">[% para.awords %]</span>
-            </div>
-            [% END %]
-        [% END %]
-            <hr />
+    [% FOREACH para = paras %]
+    <div class="card mb-4 border-0">
+    <div class="card-body">
+        [% para %]
+    </div>
+    </div>
     [% END %]
 
-        </div>
-    </div>
 
+    <p class="end">~</p>
 
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <p class="end">~</p>
-        </div>
-    </div>
 </div>
+
+
 
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
