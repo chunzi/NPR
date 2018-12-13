@@ -1,33 +1,45 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h2>[% podcast.title %]</h2>
-            <p class="text-muted">[% podcast.teaser %]</p>
-        </div>
-    </div>
-</div>
 
-<div style="background: #fafafa; border-top: solid 1px #EEE; border-bottom: solid 1px #EEE; padding-top: 20px;">
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="list-group list-group-stories">
-                [% FOREACH story = podcast.stories %]
-                <a href="#story" class="list-group-item story-title" sid='[% story.id %]'><small>[% story.date.ymd %]</small>&nbsp;&nbsp;[% story.title %]</a>[% END %]
+    <div class="card bg-light border-0">
+    <div class="card-body">
+
+        <div class="card mb-4 border-0">
+        <div class="card-body border-0">
+            <h5 class="card-title">[% podcast.title %]</h5>
+        </div>
+        </div>
+
+        [% FOREACH item = podcast.items %]
+        <div class="card mb-4 border-0">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-3">
+                    <a href="/sid/[% item.sid %]">
+                        <img src="[% item.url_cover %]" class="img-fluid rounded" />
+                    </a>
+                </div>
+                <div class="col">
+                    <h2 class="card-title">[% item.title %]</h2>
+                    <div class="text-muted">[% item.ctime %]</div>
+                    <p>[% item.description %]</p>
+                    <hr />
+                    <div class="text-08">
+                        [% item.url_mp3 %]
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-</div>
 
-<div class="container" name="story">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1 id="title"></h1>
+            <!-- <pre>[%# USE YAML; YAML.dump( item ) %]</pre> -->
+
         </div>
+        </div>
+        [% LAST IF loop.count > 5 %]
+        [% END %]
+
     </div>
-    <br />
-    <div id="story"></div>
+    </div>
+</div>
 </div>
 
 <script type="text/javascript" charset="utf-8">
