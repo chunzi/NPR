@@ -1,49 +1,91 @@
 <style type="text/css" media="screen">
 .card { font-family: Georgia,serif; font-size: 1.4rem; line-height: 180%; } 
+.speaker { font-family: Georgia,serif; font-size: 0.9rem; } 
+.aside { font-family: verdana; font-size: 0.8rem; } 
+.word { cursor: pointer; padding: 1px; }
+.word-hi { color: #dc3545; border-bottom: solid 2px #dc3545; }
+.sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1rem;
+    z-index: 1000;
+    height: calc(100vh - 2rem);
+}
+</style>
+<style type="text/css" media="print">
+.card { font-family: Georgia,serif; font-size: 1.4rem; line-height: 180%; } 
+.speaker { font-family: Georgia,serif; font-size: 0.9rem; } 
+.aside { font-family: verdana; font-size: 0.8rem; } 
 </style>
 
 <div class="container bg-light py-4">
+    <div class="row">
+        <div class="col">
 
+            <div class="card border-0 sidebar">
+            <div class="card-body text-right">
+                <div id="all"></div>
+            </div>
+            </div>
+            
+        </div>
+        <div class="col-9">
+            [% INCLUDE story %]
+        </div>
+    </div>
+
+    <p class="end">~</p>
+
+</div>
+
+[% BLOCK story %]
     <div class="card mb-4 border-0">
     <div class="card-body">
         <h5 class="card-title" style="font-size: 3rem;">[% res.title %]</h5>
         <h6 class="card-subtitle mb-2 text-muted">[% res.mp3 %]</h6>
     </div>
     </div>
-
-
             
-    [% FOREACH para = paras %]
-    <div class="card mb-4 border-0">
-    <div class="card-body">
-        [% para %]
-    </div>
-    </div>
+    [% FOREACH this = paras %]
+        [% IF this.class == 'aside' %]
+            <div class="text-muted ml-3 mb-4 aside">[% this.html %]</div>
+        [% ELSIF this.class == 'speaker' %]
+            <div class="text-info ml-3 mb-2 speaker">[% this.html %]</div>
+        [% ELSIF this.html != '' %]
+            <div class="card mb-3 border-0">
+            <div class="card-body">
+                [% FOREACH word = this.words %]
+                    <span class="word word-[% word.trim %]">[% word %]</span>
+                [% END %]
+            </div>
+            </div>
+        [% END %]
     [% END %]
-
-
-    <p class="end">~</p>
-
-</div>
-
+[% END %]
 
 
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
 
     $('.word').click(function(){
-        $(this).toggleClass('word-actived');
-        $(this).blur();
+        var word = $(this).text();
+        $('.word-'+word).toggleClass('word-hi');
         find_all_actived_words();
         return false;
     });
 
     function find_all_actived_words (){
-        var words = $('.word-actived').map(function(){ return $(this).text(); }).get();
+        var words = $('.word-hi').map(function(){ return $(this).text(); }).get();
         var words_uniq = _.uniq( words );
-        var words_html = words_uniq.join('<br>');
-
+        var words_html = words_uniq.map(function( word ){ return '<span class="word word-hi word-'+ word +'">'+word+'</span>'}).join('<br>');
         $('#all').html( words_html );
+
+        $('#all .word').click(function(){
+            var word = $(this).text();
+            $('.word-'+word).toggleClass('word-hi');
+            find_all_actived_words();
+            return false;
+        });
     }
 });
 </script>
